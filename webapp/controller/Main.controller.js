@@ -80,10 +80,43 @@ sap.ui.define([
 			var me = this;
 
 			var lol = oEvent.getSource().getCustomData()[0].getProperty('value');
-			console.log(lol);
 			
 			me.getMlAuthToken().then(function(token) {
-				me.sendToMl(token, lol);
+				me.sendToMl(token, lol).then(function(result) {
+					console.log(result.result.predictions[0].results[0].label);
+					//var pressDialog = null;
+                    var model = new JSONModel(result.result);
+                    var pressDialog = new Dialog({
+                        title: 'Machine Learning Results',
+                        content: new List({
+                            items: {
+                                path: '/predictions/0/results',
+                                template: new StandardListItem({
+                                    title: "{label}",
+                                    description: "{score}"
+                                })
+                            }
+                        }),
+                        subHeader: new sap.m.Bar({
+                            contentMiddle: [new sap.m.Image({
+                                src: result.image
+                            })]
+                        }),
+                        beginButton: new Button({
+                            text: 'Close',
+                            press: function () {
+                                pressDialog.destroy();
+                            }
+                        })
+                    });
+                    
+                    
+                    //to get access to the global model
+                    me.getView().addDependent(me.pressDialog);
+                    
+                    pressDialog.setModel(model);
+                    pressDialog.open();
+				});
 			});
 		},
 
