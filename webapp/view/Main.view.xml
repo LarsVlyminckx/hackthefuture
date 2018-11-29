@@ -40,7 +40,7 @@
 									<Text text="{dataModel>longitude}"/>
 									<Text text="{dataModel>latitude}"/>
 									<Text text="{dataModel>artifact_signal}"/>
-									<Button text="Send artifact signal to ML" app:coords="{artifact_signal}" press="triggerML"/>
+									<Button text="Send artifact signal to ML" app:coords="{dataModel>artifact_signal}" press="triggerML" />
 								</cells>
 							</ColumnListItem>
 						</items>
