@@ -60,6 +60,7 @@ sap.ui.define([
 						j++;
 				}
 			}
+		
 			var myJsonString = JSON.stringify(dataarray);
 			return myJsonString;
 
