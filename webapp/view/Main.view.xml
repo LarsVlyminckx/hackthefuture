@@ -4,7 +4,7 @@
 			<Page title="Hack the future 2018">
 				<content>
 					
-				<Table noDataText="Drop column list items here and columns in the area above" id="table0" items="/dataModel">
+				<Table noDataText="Drop column list items here and columns in the area above" id="table0" items="{dataModel>\}">
 					
 				    <columns>
 					
@@ -12,7 +12,7 @@
 					
 				            <header>
 					
-				                <Label text="Header 1" id="label0"/>
+				                <Label text="artifact_id" id="label0"/>
 					
 				            </header>
 					
@@ -22,7 +22,7 @@
 					
 				            <header>
 					
-				                <Label text="Header 2" id="label1"/>
+				                <Label text="longitude" id="label1"/>
 					
 				            </header>
 					
@@ -32,11 +32,40 @@
 					
 				            <header>
 					
-				                <Label text="Header 3" id="label2"/>
+				                <Label text="latitude" id="label2"/>
 					
 				            </header>
 					
-				        </Column></columns></Table>
+				        </Column>
+				        <Column id="column3">
+					
+				            <header>
+					
+				                <Label text="signal" id="label3"/>
+					
+				            </header>
+					
+				        </Column>
+				        
+				        </columns>
+				        
+				        <items>
+				        	
+				        <ColumnListItem>
+				        	<cells>
+				        		<Text
+				        		text="{artifact_id}"/>
+				        			<Text
+				        		text="{longitude}"/>
+				        			<Text
+				        		text="{latitude}"/>
+				        			<Text
+				        		text="{artifact_signal}"/>
+				        	</cells>
+				        </ColumnListItem>
+				        	
+				        </items>
+				        </Table>
 					
 				</content>
 				<footer>
