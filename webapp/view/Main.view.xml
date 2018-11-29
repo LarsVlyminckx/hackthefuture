@@ -9,7 +9,7 @@
 				<footer>
 					<Toolbar width="100%">
 						<content>
-							<!--<Button text="Get IoT Data" press="getIotData"/>-->
+							<Button text="Get IoT Data" press="getIotData"/>
 						</content>
 					</Toolbar>
 				</footer>
