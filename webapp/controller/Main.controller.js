@@ -38,8 +38,9 @@ sap.ui.define([
 				})
 				.then(
 					function (value) {
+						console.log(value);
 						var oModel = new JSONModel();
-						oModel.loadData(value);
+						oModel.setData({"array": value});
 						me.getView().setModel(oModel, "dataModel");
 						//console.log(value);
 					}
@@ -51,11 +52,17 @@ sap.ui.define([
 			var dataarray = [];
 			var i = 0;
 			var j = 0;
-			var o = "";
+			var o;
 			for (var i=0; i < data.length; i = i + 4) {
-				o += "{artifact_id: " + data[i].measure.artifact_id + ", longitude: " + data[i + 1].measure.longitude + ", latitude: " + data[i + 2].measure.latitude + ", artifact_signal: " + data[i + 3].measure.artifact_signal + "}";
+				
+				o = {"artifact_id": data[i].measure.artifact_id, "longitude": data[i + 1].measure.longitude, "latitude": data[i + 2].measure.latitude, "artifact_signal": data[i + 3].measure.artifact_signal};
+			
+				
+				//o += "{'artifact_id': '" + data[i].measure.artifact_id + "', 'longitude': '" + data[i + 1].measure.longitude + "', 'latitude': '" + data[i + 2].measure.latitude + "', 'artifact_signal': '" + data[i + 3].measure.artifact_signal + "'}";
+				console.log(o);
 				dataarray[j] = o;
 				j++;
+				o = null;
 			}
 			return dataarray;
 

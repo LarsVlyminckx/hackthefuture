@@ -4,7 +4,7 @@
 			<Page title="Hack the future 2018">
 				<content>
 					
-				<Table noDataText="Drop column list items here and columns in the area above" id="table0" items="{dataModel>\}">
+				<Table noDataText="Drop column list items here and columns in the area above" id="table0" items="{dataModel>/array}">
 					
 				    <columns>
 					
@@ -54,13 +54,13 @@
 				        <ColumnListItem>
 				        	<cells>
 				        		<Text
-				        		text="{artifact_id}"/>
+				        		text="{dataModel>artifact_id}"/>
 				        			<Text
-				        		text="{longitude}"/>
+				        		text="{dataModel>longitude}"/>
 				        			<Text
-				        		text="{latitude}"/>
+				        		text="{dataModel>latitude}"/>
 				        			<Text
-				        		text="{artifact_signal}"/>
+				        		text="{dataModel>artifact_signal}"/>
 				        	</cells>
 				        </ColumnListItem>
 				        	
