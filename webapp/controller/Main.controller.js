@@ -25,7 +25,6 @@ sap.ui.define([
 						headers: "",
 						success: function (data) {
 							resolve(me.groupData(data));
-
 						},
 						error: function (Error) {
 							reject((Error));
@@ -49,20 +48,16 @@ sap.ui.define([
 		},
 
 		groupData: function (data) {
-			var tempArray = [];
 			var dataarray = [];
 			var i = 0;
 			var j = 0;
-			for (var i=0; i<data.length; i++) {
-					tempArray[i] = data[i].measure;
-				if (i % 4 === 0) {
-					dataarray[j] = tempArray;
-						j++;
-				}
+			var o = "";
+			for (var i=0; i < data.length; i = i + 4) {
+				o += "{artifact_id: " + data[i].measure.artifact_id + ", longitude: " + data[i + 1].measure.longitude + ", latitude: " + data[i + 2].measure.latitude + ", artifact_signal: " + data[i + 3].measure.artifact_signal + "}";
+				dataarray[j] = o;
+				j++;
 			}
-		
-			var myJsonString = JSON.stringify(dataarray);
-			return myJsonString;
+			return dataarray;
 
 		},
 
