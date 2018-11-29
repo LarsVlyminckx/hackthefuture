@@ -42,32 +42,25 @@ sap.ui.define([
 						var oModel = new JSONModel();
 						oModel.loadData(value);
 						me.getView().setModel(oModel, "dataModel");
-						console.log(value);
+						//console.log(value);
 					}
 					//-> XX = your device id
 				);
 		},
 
 		groupData: function (data) {
-
 			var tempArray = [];
 			var dataarray = [];
 			var i = 0;
 			var j = 0;
-			for (var measure in data) {
-				if (data.hasOwnProperty(measure)) {
-
-					tempArray[i] = data.measure;
-					i++;
-					if (i % 4 === 0) {
-
-						dataarray[j] = tempArray;
+			for (var i=0; i<data.length; i++) {
+					tempArray[i] = data[i].measure;
+				if (i % 4 === 0) {
+					dataarray[j] = tempArray;
 						j++;
-					}
 				}
 			}
 			var myJsonString = JSON.stringify(dataarray);
-
 			return myJsonString;
 
 		},
