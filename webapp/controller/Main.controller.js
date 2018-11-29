@@ -10,18 +10,40 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("com.flexso.HackTheFuture.controller.Main", {
-
+			
 		onInit: function () {
-			this.getIotData();
+			
+			
 		},
 
 		getIotData: function () {
 			// url to get the artifact signals of your device : 
-			 '/devices/108/measures'  ;
+			var promise = new Promise(function (resolve, reject){
+							$.ajax({
+					type: "GET",
+					url: "/devices/108/measures",
+					headers: "",
+					success: function (data) {
+						resolve(data);
+					},
+					error: function (Error) {
+						reject((Error));
+					},
+					contentType: false,
+					async: true,
+					data: null,
+					cache: false,
+					processData: false
+				});
+		});
+			  
 			//-> XX = your device id
-		},
 
+			
+		},
+			
 		groupData: function () {
+			
 		},
 
 		triggerML: function (oEvent) {
@@ -89,7 +111,7 @@ sap.ui.define([
 			});
 			return blob;
 		}
-
+			
 	});
 });
 
