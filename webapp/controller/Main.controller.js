@@ -80,42 +80,41 @@ sap.ui.define([
 			var me = this;
 
 			var lol = oEvent.getSource().getCustomData()[0].getProperty('value');
-			
-			me.getMlAuthToken().then(function(token) {
-				me.sendToMl(token, lol).then(function(result) {
+
+			me.getMlAuthToken().then(function (token) {
+				me.sendToMl(token, lol).then(function (result) {
 					console.log(result.result.predictions[0].results[0].label);
 					//var pressDialog = null;
-                    var model = new JSONModel(result.result);
-                    var pressDialog = new Dialog({
-                        title: 'Machine Learning Results',
-                        content: new List({
-                            items: {
-                                path: '/predictions/0/results',
-                                template: new StandardListItem({
-                                    title: "{label}",
-                                    description: "{score}"
-                                })
-                            }
-                        }),
-                        subHeader: new sap.m.Bar({
-                            contentMiddle: [new sap.m.Image({
-                                src: result.image
-                            })]
-                        }),
-                        beginButton: new Button({
-                            text: 'Close',
-                            press: function () {
-                                pressDialog.destroy();
-                            }
-                        })
-                    });
-                    
-                    
-                    //to get access to the global model
-                    me.getView().addDependent(me.pressDialog);
-                    
-                    pressDialog.setModel(model);
-                    pressDialog.open();
+					var model = new JSONModel(result.result);
+					var pressDialog = new Dialog({
+						title: 'Machine Learning Results',
+						content: new List({
+							items: {
+								path: '/predictions/0/results',
+								template: new StandardListItem({
+									title: "{label}",
+									description: "{score}"
+								})
+							}
+						}),
+						subHeader: new sap.m.Bar({
+							contentMiddle: [new sap.m.Image({
+								src: result.image
+							})]
+						}),
+						beginButton: new Button({
+							text: 'Close',
+							press: function () {
+								pressDialog.destroy();
+							}
+						})
+					});
+
+					//to get access to the global model
+					me.getView().addDependent(me.pressDialog);
+
+					pressDialog.setModel(model);
+					pressDialog.open();
 				});
 			});
 		},
@@ -146,41 +145,41 @@ sap.ui.define([
 		},
 
 		sendToMl: function (token, base64) {
-            var contentType = 'image/jpg';
-            var image = this.base64toBlob(base64, contentType);
-            var blobUrl = URL.createObjectURL(image);
-            var formData = new FormData();
-            formData.append("files", image, "ArtifactSignal.jpg");
-            var promise = new Promise(function (resolve, reject) {
-                $.ajax({
-                    type: "POST",
-                    url: "/ml-dest/api/v2/image/classification/models/HTF/versions/2",
-                    headers: {
-                        "Accept": "application/json",
-                        "APIKey": token,
-                        "Authorization": token
-                    },
-                    success: function (data) {
-                        resolve(data);
-                    },
-                    error: function (Error) {
-                        reject((Error));
-                    },
-                    contentType: false,
-                    async: false,
-                    data: formData,
-                    cache: false,
-                    processData: false
-                });
-            });
-            return Promise.resolve(promise).then(function (result) {
-                var obj = {
-                    "result": result,
-                    "image": blobUrl
-                };
-                return obj;
-            });
-        },
+			var contentType = 'image/jpg';
+			var image = this.base64toBlob(base64, contentType);
+			var blobUrl = URL.createObjectURL(image);
+			var formData = new FormData();
+			formData.append("files", image, "ArtifactSignal.jpg");
+			var promise = new Promise(function (resolve, reject) {
+				$.ajax({
+					type: "POST",
+					url: "/ml-dest/api/v2/image/classification/models/HTF/versions/2",
+					headers: {
+						"Accept": "application/json",
+						"APIKey": token,
+						"Authorization": token
+					},
+					success: function (data) {
+						resolve(data);
+					},
+					error: function (Error) {
+						reject((Error));
+					},
+					contentType: false,
+					async: false,
+					data: formData,
+					cache: false,
+					processData: false
+				});
+			});
+			return Promise.resolve(promise).then(function (result) {
+				var obj = {
+					"result": result,
+					"image": blobUrl
+				};
+				return obj;
+			});
+		},
 
 		base64toBlob: function (b64Data, contentType, sliceSize) {
 
