@@ -68,7 +68,11 @@ sap.ui.define([
 
 		},
 
-		triggerML: function (oEvent) {},
+		triggerML: function (oEvent) {
+				
+			var lol = oEvent.getSource().getCustomData()[0].getProperty('value');
+			console.log(lol);
+		},
 
 		getMlAuthToken: function () {
 			var promise = new Promise(function (resolve, reject) {
