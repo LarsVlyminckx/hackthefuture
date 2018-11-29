@@ -1,0 +1,19 @@
+<mvc:View controllerName="com.flexso.HackTheFuture.controller.Main" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.ui.table"
+	xmlns:unified="sap.ui.unified" xmlns="sap.m" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<App>
+		<pages>
+			<Page title="Hack the future 2018">
+				<content>
+					
+				</content>
+				<footer>
+					<Toolbar width="100%">
+						<content>
+							<!--<Button text="Get IoT Data" press="getIotData"/>-->
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
