@@ -10,44 +10,69 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("com.flexso.HackTheFuture.controller.Main", {
-			
+
 		onInit: function () {
-			
-			
+
 		},
 
 		getIotData: function () {
+			var me = this;
 			// url to get the artifact signals of your device : 
-			var promise = new Promise(function (resolve, reject){
-							$.ajax({
-					type: "GET",
-					url: "/devices/108/measures",
-					headers: "",
-					success: function (data) {
-						resolve(data);
-					},
-					error: function (Error) {
-						reject((Error));
-					},
-					contentType: false,
-					async: true,
-					data: null,
-					cache: false,
-					processData: false
-				});
-		});
-			  
-			//-> XX = your device id
+			var promise = new Promise(function (resolve, reject) {
+					$.ajax({
+						type: "GET",
+						url: "/devices/108/measures",
+						headers: "",
+						success: function (data) {
+							resolve(me.groupData(data));
 
-			
-		},
-			
-		groupData: function () {
-			
+						},
+						error: function (Error) {
+							reject((Error));
+						},
+						contentType: false,
+						async: true,
+						data: null,
+						cache: false,
+						processData: false
+					});
+				})
+				.then(
+					function (value) {
+						var oModel = new JSONModel();
+						oModel.loadData(value);
+						me.getView().setModel(oModel, "dataModel");
+						console.log(value);
+					}
+					//-> XX = your device id
+				);
 		},
 
-		triggerML: function (oEvent) {
+		groupData: function (data) {
+
+			var tempArray = [];
+			var dataarray = [];
+			var i = 0;
+			var j = 0;
+			for (var measure in data) {
+				if (data.hasOwnProperty(measure)) {
+
+					tempArray[i] = data.measure;
+					i++;
+					if (i % 4 === 0) {
+
+						dataarray[j] = tempArray;
+						j++;
+					}
+				}
+			}
+			var myJsonString = JSON.stringify(dataarray);
+
+			return myJsonString;
+
 		},
+
+		triggerML: function (oEvent) {},
 
 		getMlAuthToken: function () {
 			var promise = new Promise(function (resolve, reject) {
@@ -75,14 +100,13 @@ sap.ui.define([
 		},
 
 		sendToMl: function () {
-		
+
 			//Use the following format to send to ML (image name can always be 'ArtifactSignal.jpg')
 			//image is a variable
 			//var formData = new FormData();
 			//formData.append("files", image, "ArtifactSignal.jpg");
-			
+
 			//url to post on : '/ml-dest/api/v2/image/classification/models/HTF/versions/2'
-			
 
 		},
 
@@ -111,7 +135,6 @@ sap.ui.define([
 			});
 			return blob;
 		}
-			
+
 	});
 });
-
