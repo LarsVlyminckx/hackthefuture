@@ -16,7 +16,6 @@ sap.ui.define([
 		},
 
 		getIotData: function () {
-			// url to get the artifact signals of your device :
 			var me = this;
 			new Promise(function (resolve, reject) {
 					$.ajax({
@@ -44,7 +43,6 @@ sap.ui.define([
 						});
 						me.getView().setModel(oModel, "dataModel");
 					}
-					//-> XX = your device id
 				);
 		},
 
@@ -62,7 +60,6 @@ sap.ui.define([
 					"artifact_signal_base": data[i + 3].measure.artifact_signal
 				};
 
-				//o += "{'artifact_id': '" + data[i].measure.artifact_id + "', 'longitude': '" + data[i + 1].measure.longitude + "', 'latitude': '" + data[i + 2].measure.latitude + "', 'artifact_signal': '" + data[i + 3].measure.artifact_signal + "'}";
 				dataarray[j] = o;
 				j++;
 				o = null;
